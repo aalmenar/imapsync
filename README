@@ -1,9 +1,9 @@
 NAME
     imapsync - IMAP synchronisation, sync, copy or migration tool.
     Synchronise mailboxes between two imap servers. Good at IMAP migration.
-    More than 36 different IMAP server softwares supported with success.
+    More than 44 different IMAP server softwares supported with success.
 
-    $Revision: 1.456 $
+    $Revision: 1.476 $
 
 SYNOPSIS
     To synchronise imap account "foo" on "imap.truc.org" to imap account
@@ -20,12 +20,12 @@ INSTALL
      with Strawberry Perl 5.10 or 5.12
      or as a standalone binary software imapsync.exe
 
-    imapsync is already available directly on the following distributions
-    (at least): FreeBSD, Debian, Ubuntu, Gentoo, Fedora, NetBSD, Darwin,
-    Mandriva and OpenBSD.
+    imapsync can be available directly on the following distributions:
+    FreeBSD, Debian, Ubuntu, Gentoo, Fedora, NetBSD, Darwin, Mandriva and
+    OpenBSD.
 
-     Get imapsync at
-     http://www.linux-france.org/prj/imapsync/
+     Purchase latest imapsync at
+     http://imapsync.lamiral.info/
 
      You'll receive a link to a compressed tarball called imapsync-x.xx.tgz
      where x.xx is the version number. Untar the tarball where
@@ -35,9 +35,10 @@ INSTALL
 
      Go into the directory imapsync-x.xx and read the INSTALL file.
      The INSTALL file is also at 
-     http://www.linux-france.org/prj/imapsync/INSTALL
+     http://imapsync.lamiral.info/INSTALL
 
-     The freshmeat record is at http://freshmeat.net/projects/imapsync/
+     The freecode (was freshmeat) record is at 
+     http://freecode.com/projects/imapsync
 
 USAGE
      imapsync [options]
@@ -110,9 +111,7 @@ DESCRIPTION
     sides. Same headers and the transfer is done only once. All flags are
     preserved, unread will stay unread, read will stay read, deleted will
     stay deleted. You can stop the transfer at any time and restart it
-    later, imapsync works well with bad connections. imapsync is CPU hungry
-    so nice and renice commands can be a good help. imapsync can be memory
-    hungry too, especially with large messages.
+    later, imapsync works well with bad connections.
 
     You can decide to delete the messages from the source mailbox after a
     successful transfer (it is a good feature when migrating). In that case,
@@ -123,6 +122,11 @@ DESCRIPTION
 
     You can also just synchronize a mailbox A from another mailbox B in case
     you just want to keep a "live" copy of B in A (--delete2 may help)
+
+    imapsync is not adequate for maintaining two active imap accounts in
+    synchronization where the user plays independently on both sides. Use
+    offlineimap (written by John Goerzen) or mbsync (written by Michael R.
+    Elkins) for 2 ways synchronizations.
 
 OPTIONS
     To get a description of each option just invoke:
@@ -238,7 +242,7 @@ BUG REPORT GUIDELINES
     author.
 
     Before reporting bugs, read the FAQ, the README and the TODO files.
-    http://www.linux-france.org/prj/imapsync/
+    http://imapsync.lamiral.info/
 
     Upgrade to last imapsync release, maybe the bug is already fixed.
 
@@ -334,8 +338,8 @@ IMAP SERVERS
      - hMailServer 5.3.3 [host2], 4.4.1 [host1] (see FAQ)
      - iPlanet Messaging server 4.15, 5.1, 5.2
      - IMail 7.15 (Ipswitch/Win2003), 8.12, 11.03 [host1]
-     - Kerio 7.2.0P1 [host1]
-     - MailEnable 4.23 [host1] [host2]
+     - Kerio 7.2.0 Patch 1 [host1] [host2]
+     - MailEnable 4.23 [host1] [host2], 4.26 [host1][host2], 5 [host1]
      - MDaemon 7.0.1, 8.0.2, 8.1, 9.5.4 (Windows server 2003 R2 platform), 12 [host2],
        12.0.3 [host1]
      - Mercury 4.1 (Windows server 2000 platform)
@@ -344,7 +348,7 @@ IMAP SERVERS
        Exchange2007-EP-SP2,
        Exchange 2010 RTM (Release to Manufacturing) [host2],
        Exchange 2010 SP1 RU2[host2],
-     - Mirapoint
+     - Mirapoint, 4.1.9-GA [host1]
      - Netscape Mail Server 3.6 (Wintel !)
      - Netscape Messaging Server 4.15 Patch 7
      - OpenMail IMAP server B.07.00.k0 (Samsung Contact ?)
@@ -363,6 +367,7 @@ IMAP SERVERS
        (http://www.washington.edu/imap/)
      - UW - QMail v2.1
      - VMS, Imap part of TCP/IP suite of VMS 7.3.2
+     - Yahoo [host1]
      - Zimbra-IMAP 3.0.1 GA 160, 3.1.0 Build 279, 4.0.5, 4.5.2, 4.5.6, 
        Zimbra 5.0.24_GA_3356.RHEL4 [host1], 5.5, 6.x
 
@@ -385,10 +390,10 @@ HUGE MIGRATION
     --maxage --minage --maxsize --useheader --fast --useuid --usecache
 
     If you have many mailboxes to migrate think about a little shell
-    program. Write a file called file.csv (for example) containing users and
+    program. Write a file called file.txt (for example) containing users and
     passwords. The separator used in this example is ';'
 
-    The file.csv file contains:
+    The file.txt file contains:
 
     user001_1;password001_1;user001_2;password001_2
     user002_1;password002_1;user002_2;password002_2
@@ -401,11 +406,11 @@ HUGE MIGRATION
      { while IFS=';' read  u1 p1 u2 p2; do 
             imapsync --host1 imap.side1.org --user1 "$u1" --password1 "$p1" \
                      --host2 imap.side2.org --user2 "$u2" --password2 "$p2" ...
-     done ; } < file.csv
+     done ; } < file.txt
 
     On Windows the batch program can be:
 
-      FOR /F "tokens=1,2,3,4 delims=; eol=#" %%G IN (file.csv) DO imapsync ^
+      FOR /F "tokens=1,2,3,4 delims=; eol=#" %%G IN (file.txt) DO imapsync ^
       --host1 imap.side1.org --user1 %%G --password1 %%H ^
       --host2 imap.side2.org --user2 %%I --password2 %%J ...
 
@@ -421,25 +426,22 @@ Links
 
 SIMILAR SOFTWARES
       imap_tools    : http://www.athensfbc.com/imap_tools
-      offlineimap   : http://software.complete.org/offlineimap
+      offlineimap   : https://github.com/nicolas33/offlineimap
+      mbsync        : http://isync.sourceforge.net/
       mailsync      : http://mailsync.sourceforge.net/
-      imapxfer      : http://www.washington.edu/imap/
-                       part of the imap-utils from UW.
-      mailutil      : replace imapxfer in 
-                       part of the imap-utils from UW.
-                      http://www.gsp.com/cgi-bin/man.cgi?topic=mailutil
+      mailutil      : http://www.washington.edu/imap/
+                      part of the UW IMAP tookit.
       imaprepl      : http://www.bl0rg.net/software/
-                      http://freshmeat.net/projects/imap-repl/
-      imap_migrate  : http://freshmeat.net/projects/imapmigration/
+                      http://freecode.com/projects/imap-repl/
       imapcopy      : http://home.arcor.de/armin.diehl/imapcopy/imapcopy.html
       migrationtool : http://sourceforge.net/projects/migrationtool/
       imapmigrate   : http://sourceforge.net/projects/cyrus-utils/
       wonko_imapsync: http://wonko.com/article/554
-                      see also tools/wonko_ruby_imapsync
-      isync         : http://isync.sourceforge.net/
+                      see also file W/tools/wonko_ruby_imapsync
+      exchange-away : http://exchange-away.sourceforge.net/
       pop2imap      : http://www.linux-france.org/prj/pop2imap/
 
     Feedback (good or bad) will often be welcome.
 
-    $Id: imapsync,v 1.456 2011/08/24 04:21:30 gilles Exp gilles $
+    $Id: imapsync,v 1.476 2011/12/10 01:33:50 gilles Exp gilles $
 

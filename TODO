@@ -1,16 +1,12 @@
 #!/bin/cat
-# $Id: TODO,v 1.101 2011/08/24 06:50:30 gilles Exp gilles $
+# $Id: TODO,v 1.108 2011/12/07 23:59:32 gilles Exp gilles $
 
 TODO file for imapsync
 ----------------------
 
-Post on newsgroup comp.mail.imap when a new release comes.
-http://groups.google.fr/group/comp.mail.imap
-
-Post on imapsync mailing-list when a new release comes.
-
 Start a wiki for imapsync.
 
+Write a tutorial.
 Add a best practice migration tips document.
 
 Write a Mail::imapsync package and use it.
@@ -22,13 +18,33 @@ http://www.linux-france.org/prj/imapsync_list/msg00307.html
 Evaluate 
 http://www.rackspace.com/apps/email_hosting/migrations
 http://www.yippiemove.com/
+http://www.migrationwiz.com/
+
+Consider /var/tmp/ instead of /tmp (/tmp is destoyed 
+on some Unix at reboot)
+
+Add a FAQ entry about long path over than 260 character on Win32. 
+
+Fix long path over than 260 character on Win32. 
+Think about Digest::SHA or Digest::SHA::PurePerl.
+
+Try to use imapsync with cygwin.
+
+Change default --useheader 'Message-ID' --useheader Date to 
+--useheader 'Message-ID' --useheader 'Received'
+because Exchange changes Date header! (but not Received:)
+
+Add an option to solve syncing Sent folder when no good header
+are available:
+http://www.linux-france.org/prj/imapsync_list/msg01151.html
+http://www.linux-france.org/prj/imapsync_list/msg01158.html
+
+
+Check message exists before fetching it (could have been deleted recently)
 
 Find a way to avoid passwords in --debugimap unless needed.
 
 Explain that users can win time/bandwidth by using --expunge
-
-Fix long path over than 256 character on Win32. 
-Think about Digest::SHA or Digest::SHA::PurePerl.
 
 Fix "\Forwarded" flag bug in courier.
 Does \lalala can be forbidden (courier does a 
@@ -46,13 +62,6 @@ e-mail when it gets synced, rather than just the message ID and the date/time.
 
 Add a well described problem for each problem detected
 and counted in error counter statistics.
-
-Add yahoo imap support:
-http://elearningcentral.blogspot.com/2010/07/how-to-use-imapsync-with-yahoo-imap.html
-http://www.bwebcentral.com/utils/imapsync-yahoo
-See patches/imapsync-yahoo
-
-
 
 Add "output to reflect everything that imapsync was doing".
 Not everything but flag synchronization will be nice"
@@ -74,10 +83,7 @@ Peer Heinlein.
 Add different levels of output to see clearly the
 problem by default.
 
-Add option --exclude_messages_with_flag
-
 Add more information about skipped messages.
-
 
 Add Rick Romero patch with
 --quiet   No output at all
@@ -88,7 +94,6 @@ Simon Bertrang said "way better performance, less problems, easier to use and no
 issues so far". Sounds good! 
 
 Add an option to implement the faq entry about copying a contact folder.
-
 
 imapsync doesn't report well. It should says "I had
 to sync 123 messages but I could transfer only 99 messages"
@@ -161,6 +166,37 @@ Add cyrus link about INBOX. namespace
 http://asg.web.cmu.edu/cyrus/download/imapd/altnamespace.html
 
 ===========================================================================
+
+DONE. Add a script to install automaticaly all needed Perl modules
+if needed. Not a script but command lines in INSTALL file.
+
+DONE. Post on imapsync mailing-list when a new release comes.
+No since I no longer distribute it gratis, imapsync detects
+itself a new release and buyers are informed by a specific 
+list. I know some packagers (FreeBSD) use the Changelog file 
+to detect an update.
+
+DONE. Subscribe users to imapsync_update mailing-list automatically after the payment.
+(done in paypal_send)
+
+DONE. NO became porn! Post on newsgroup comp.mail.imap when a new release comes.
+http://groups.google.fr/group/comp.mail.imap
+
+DONE. The --search option allows this (and many other things)
+Add option --exclude_messages_with_flag
+
+DONE. (yahoo login is standard now)
+Add yahoo imap support:
+http://elearningcentral.blogspot.com/2010/07/how-to-use-imapsync-with-yahoo-imap.html
+http://www.bwebcentral.com/utils/imapsync-yahoo
+See patches/imapsync-yahoo
+
+
+DONE. Add --subscribe by default. 
+Subscribe only when needed (not already subscribed).
+
+DONE. Ask Nick Czeczulin why he wrote patent "Method for mailbox migration"
+http://www.google.com/patents/about?id=qI_IAAAAEBAJ
 
 DONE. Add --search option allowing to select messages with any IMAP SEARCH command.
 

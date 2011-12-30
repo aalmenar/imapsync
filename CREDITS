@@ -1,5 +1,5 @@
 #!/bin/cat
-# $Id: CREDITS,v 1.160 2011/07/11 01:30:09 gilles Exp gilles $
+# $Id: CREDITS,v 1.165 2011/12/10 02:25:01 gilles Exp gilles $
 
 If you want to make a donation to the author, Gilles LAMIRAL,
 use any of the following ways:
@@ -30,9 +30,32 @@ I thank very much all of these people.
 I thank also very much all people who bought imapsync from the homepage
 but I don't cite them here.
 
+Thomas Edgar
+Gave a FAQ item "from Exchange 2003 to Cyrus Imap 2.4"
+
+Dan Hulme.
+Found a bug in the FAQ about --regextrans2
+(Fix is --regextrans2 's,${h2_prefix}(.*),${h2_prefix}FOO${h2_sep}$1,')
+Suggested default --useheader 'Message-ID' --useheader 'Received'
+(Exchange compliant)
+
+Ameir Abdeldayem
+Gave a patch to sync messages lacking Message-ID
+http://www.linux-france.org/prj/imapsync_list/msg01151.html
+
+Yousaf Shah
+Contributed by giving the book
+19.90 "Making Things Talk: Using Sensors, Networks, and Arduino to see, hear, and feel your world"
+
+Klaus Franken
+Patch to avoid useless warning "Use of uninitialized value $uid1 in exists"
+
+Charles H Deling
+Contributed by giving the book
+13.59 "The Twitter Book"
+
 Paulo Victor Fernandes da Silva
 Contributed by giving money 1 USD   
-
 
 Daniel Rohde
 Bugfix. Solaris 10. ps -o vsz -p @PID
@@ -1014,6 +1037,9 @@ Eric Yung
 
 Total amount of book prices :
 c \
+19.90+\
+13.59+\
+32.65+\
 20.31+\
 \
 75.00+\
@@ -1144,4 +1170,4 @@ c \
 31.20+\
 40.00
 =
-2963.96
+3050.41
